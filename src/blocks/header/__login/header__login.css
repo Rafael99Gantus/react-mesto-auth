@@ -1,0 +1,6 @@
+.header__login{
+    width: 114px;
+    height: 22px;
+    background: url(../../../images/loginLogo.svg) no-repeat center;
+    object-fit: cover;
+}

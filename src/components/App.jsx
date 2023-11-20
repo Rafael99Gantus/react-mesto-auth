@@ -1,4 +1,5 @@
 import React from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
@@ -6,6 +7,8 @@ import Footer from './Footer.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import PopupWithForm from './PopupWithForm.jsx';
+import Register from './Register.jsx';
+import Login from './Login.jsx';
 import ImagePopup from './ImagePopup.jsx';
 import AddPlacePopup from './AddPlacePopup.js';
 import api from '../utils/Api.js';
@@ -20,6 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState('');
   const [cards, setCards] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     api.getInfo()
@@ -116,6 +120,13 @@ function App() {
       });
   }
 
+  function handleRegister(){
+
+  }
+
+  function handleLogin(){
+
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -123,6 +134,11 @@ function App() {
         <div className="root">
 
           <div className="page">
+            <Routes>
+              <Route path="/sign-up" element={<Register onRegister={handleRegister} />} />
+              <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
+              {/* element={<Register onRegister={handleRegister} />} */}
+            </Routes>
             <Header />
             <Main
               onEditProfile={handleEditProfileClick}

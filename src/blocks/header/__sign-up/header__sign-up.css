@@ -1,0 +1,6 @@
+.header__sign-up{
+    width: 53px;
+    height: 22px;
+    background: url(../../../images/sign-in.svg) no-repeat center;
+    object-fit: cover;
+}
