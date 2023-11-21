@@ -9,11 +9,13 @@ import EditAvatarPopup from './EditAvatarPopup.js';
 import PopupWithForm from './PopupWithForm.jsx';
 import Register from './Register.jsx';
 import Login from './Login.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 import ImagePopup from './ImagePopup.jsx';
 import AddPlacePopup from './AddPlacePopup.js';
 import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import { CurrentCardInfo } from '../contexts/CurrentCardInfo.js';
+import * as Auth from '../utils/Auth.jsx';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -24,6 +26,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState('');
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false)
+  const [userEmail, setUserEmail] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     api.getInfo()
@@ -42,6 +47,25 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    const JWT = localStorage.getItem("JWT");
+    if (JWT) {
+      Auth.checkToken(JWT)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            setUserEmail(res.data.email);
+            navigate("/", {replace: true})
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn) navigate("/");
+  }, [loggedIn, navigate]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -120,12 +144,12 @@ function App() {
       });
   }
 
-  function handleRegister(){
+  function handleRegister() {
 
   }
 
-  function handleLogin(){
-
+  const handleLogin = () => {
+    setLoggedIn(true);
   }
 
   return (
@@ -135,6 +159,22 @@ function App() {
 
           <div className="page">
             <Routes>
+              <Route path="/" element={
+                <ProtectedRoute
+                  loggedIn={loggedIn}
+                  component={Main}
+                  cards={cards}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleEditCardsClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                  setCards={setCards}
+                  onCardDelete={handleCardDelete}
+                  onDeletePopupClick={handleCardDelete}
+                />
+              }
+              />
               <Route path="/sign-up" element={<Register onRegister={handleRegister} />} />
               <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
               {/* element={<Register onRegister={handleRegister} />} */}
