@@ -4,3 +4,7 @@
     background: url(../../../images/sign-in.svg) no-repeat center;
     object-fit: cover;
 }
+
+.header__sign-up:hover{
+    opacity: 60%;
+}

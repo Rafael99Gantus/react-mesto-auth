@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default function InfoTooltip() {
-    const className = card ? 'popup_opened' : '';
+export default function InfoTooltip(props) {
+    const className = props.isOpen ? 'popup_opened' : '';
 
     return (
-        <div className={`popup ${className}`} id={card?.name}>
+        <div className={`popup ${className}`} >
             <div className="popup__container">
-                <button id="closedIconPopupImage" className="popup__closed" type="button" onClick={closeFunc} />
-                <div className="popup__tooltip" src={card?.link} alt={card?.name} />
-                <h2 className="popup__titleImage">{card?.name}</h2>
+                <button id="closedIconPopupImage" className="popup__closed" type="button" onClick={props.closeFunc} />
+                <div className="popup__tooltip" src={''} alt={'Image'} />
+                <p className="popup__text">{''}</p>
             </div>
         </div>
     )

@@ -7,6 +7,7 @@ import Footer from './Footer.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import PopupWithForm from './PopupWithForm.jsx';
+import InfoTooltip from './InfoTooltip.jsx';
 import Register from './Register.jsx';
 import Login from './Login.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
@@ -22,6 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsEditCardPopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isAnswerPopupOpen, setIsAnswerPopupOpen] = useState(false);
+  const [isInfoTooltipPopup, setIsInfoTooltipPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState('');
   const [cards, setCards] = useState([]);
@@ -92,6 +94,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditCardPopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsInfoTooltipPopup(false)
     setSelectedCard(null);
   }
 
@@ -152,6 +155,10 @@ function App() {
     setLoggedIn(true);
   }
 
+  function handleIsInfoTooltipClick(){
+    setIsInfoTooltipPopup(true)
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <CurrentCardInfo.Provider value={cards}>
@@ -175,11 +182,10 @@ function App() {
                 />
               }
               />
-              <Route path="/sign-up" element={<Register onRegister={handleRegister} />} />
+              <Route path="/sign-up" element={<Register onRegister={handleRegister} onIsInfoTooltip={handleIsInfoTooltipClick} closeFunc={closeAllPopup}/>} />
               <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
-              {/* element={<Register onRegister={handleRegister} />} */}
             </Routes>
-            <Header />
+            <Header loggedIn={loggedIn} userEmail={userEmail}/>
             <Main
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleEditCardsClick}
@@ -191,6 +197,11 @@ function App() {
             />
             <Footer />
           </div>
+
+          <InfoTooltip 
+            isOpen={isInfoTooltipPopup}
+            closeFunc={closeAllPopup}
+          />
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}

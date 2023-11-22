@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Auth from '../utils/Auth.jsx';
 
 export default function Login(props) {
@@ -19,15 +19,13 @@ export default function Login(props) {
         }
         Auth.authorize(email, password)
           .then((data) => {
+            console.log(data)
             if(data.jwt){
                 setEmail('');
                 setPassword('');
               props.onLogin();
               navigate('/', {replace: true});
             }
-            // сбросьте стейт, затем в колбэке установите
-            // стейт loggedIn родительского App как true,
-            // затем перенаправьте его в /diary
           })
           .catch(err => console.log(err));
       }
@@ -36,7 +34,7 @@ export default function Login(props) {
         <div className='root'>
                 <header className="header">
                     <div className="header__logo" />
-                    <div className="header__login" />
+                    <Link to='/sign-up' className="header__login" />
                 </header>
                 <div className='login'>
                     <h2 className='register__title' >Вход</h2>

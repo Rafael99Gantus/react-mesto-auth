@@ -4,3 +4,7 @@
     background: url(../../../images/loginLogo.svg) no-repeat center;
     object-fit: cover;
 }
+
+.header__login:hover{
+    opacity: 60%;
+}

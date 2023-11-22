@@ -1,7 +1,7 @@
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
 export const register = (email, password) => {
-  return fetch(`${BASE_URL}/sign-up`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
         "Content-Type": "application/json" 
@@ -18,14 +18,18 @@ export const register = (email, password) => {
     }
   })
   .then((res) => {
+    console.log(res)
     return res;
   })
-  .catch((err) => console.log(err));
+  .catch((err) => 
+  console.log(err)
+  
+  );
 }; 
 
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/sign-in`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
         "Content-Type": "application/json" 
@@ -42,7 +46,13 @@ export const authorize = (email, password) => {
     }
   })
   .then((res) => {
-    return res;
+    if(res.token){
+      console.log(res)
+      localStorage.setItem('jwt', res.token);
+      return res;
+    }else{
+      return;
+    }
   })
   .catch((err) => console.log(err));
 }; 
