@@ -37,6 +37,7 @@ export default function Login(props) {
                     <div className="header__logo" />
                     <Link to='/sign-up' className="header__login" />
                 </header>
+                <main>
                 <div className='login'>
                     <h2 className='register__title' >Вход</h2>
                     <form onSubmit={handleSubmit}>
@@ -45,6 +46,7 @@ export default function Login(props) {
                         <button className='register__button'>Войти</button>
                     </form>
                 </div>
+                </main>
         </div>
     )
 }

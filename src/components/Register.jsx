@@ -38,6 +38,7 @@ export default function Register(props) {
                     <div className="header__logo" />
                     <Link to='/sign-in' className="header__sign-up"></Link>
                 </header>
+                <main>
                 <div className='register'>
                     <h2 className='register__title' >Регистрация</h2>
                     <form onSubmit={handleSubmit} >
@@ -58,6 +59,7 @@ export default function Register(props) {
                     </form>
                     <p className="register__text">Уже зарегистрированы? <Link to="/sign-in" className="register__link">Войти</Link></p>
                 </div>
+                </main>
         </div>
     )
 }
