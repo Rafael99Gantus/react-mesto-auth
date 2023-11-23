@@ -29,6 +29,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false)
   const [userEmail, setUserEmail] = useState("");
+  
 
   const navigate = useNavigate();
 
@@ -201,6 +202,7 @@ function App() {
           <InfoTooltip 
             isOpen={isInfoTooltipPopup}
             closeFunc={closeAllPopup}
+            loggedIn={loggedIn}
           />
 
           <EditProfilePopup

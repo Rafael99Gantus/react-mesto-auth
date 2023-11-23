@@ -1,21 +1,18 @@
+import checkResponse from "./checkResponse";
+
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
+function request(url, options) {
+  return fetch(url, options).then(checkResponse)
+}
+
 export const register = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
+  return request(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
         "Content-Type": "application/json" 
     },
     body: JSON.stringify({email: email, password: password})
-  })
-  .then((response) => {
-    try {
-      if (response.status === 200){
-        return response.json();
-      }
-    } catch(e){
-      return (e)
-    }
   })
   .then((res) => {
     console.log(res)
@@ -29,21 +26,12 @@ export const register = (email, password) => {
 
 
 export const authorize = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  return request(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
         "Content-Type": "application/json" 
     },
     body: JSON.stringify({email: email, password: password})
-  })
-  .then((response) => {
-    try {
-      if (response.status === 200){
-        return response.json();
-      }
-    } catch(e){
-      return (e)
-    }
   })
   .then((res) => {
     if(res.token){
@@ -58,13 +46,12 @@ export const authorize = (email, password) => {
 }; 
 
 export const checkToken = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
+  return request(`${BASE_URL}/users/me`, {
       method: "GET",
       headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
       }
   })
-  .then(res => res.json())
   .then(data => data)
 };

@@ -45,9 +45,9 @@ export default function AddPlacePopup(props) {
 
             <input id="fieldWorkPopupProfile" 
             className="popup__field" 
-            type="text" 
-            placeholder="Род деятельности" 
-            name="activity" 
+            type="link" 
+            placeholder="Ссылка на изображение" 
+            name="link" 
             minLength={2} 
             maxLength={200} 
             required 

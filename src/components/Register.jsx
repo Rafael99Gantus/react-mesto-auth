@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import * as Auth from '../utils/Auth.jsx';
 
 export default function Register(props) {
-
+    const [isRegisterSuccess, setIsRegisterSuccess] = useState(true)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -19,11 +19,13 @@ export default function Register(props) {
         e.preventDefault();
         Auth.register(email, password)
         .then(() => {
+            setIsRegisterSuccess(true)
             navigate('/sign-in', {replace: true});
             props.onIsInfoTooltip();
             setTimeout(props.closeFunc, 2000)
         })
         .catch((err)=>{
+            setIsRegisterSuccess(false)
             props.onIsInfoTooltip();
             setTimeout(props.closeFunc, 2000);
             console.log(err)
@@ -43,13 +45,13 @@ export default function Register(props) {
                         <input type="email"
                             className='register__field-email'
                             placeholder="Email"
-                            value={email}
+                            value={email || ''}
                             onChange={handleEmail} />
 
                         <input type="password"
                             className='register__field-password'
                             placeholder="Пароль"
-                            value={password}
+                            value={password || ''}
                             onChange={handlePassword} />
 
                         <button className='register__button' onSubmit={handleSubmit}>Зарегистрироваться</button>
