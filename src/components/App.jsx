@@ -52,7 +52,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const JWT = localStorage.getItem("JWT");
+    const JWT = localStorage.getItem("jwt");
     if (JWT) {
       Auth.checkToken(JWT)
         .then((res) => {
@@ -166,7 +166,9 @@ function App() {
         <div className="root">
 
           <div className="page">
+          <Header loggedIn={loggedIn} userEmail={userEmail}/>
             <Routes>
+              
               <Route path="/" element={
                 <ProtectedRoute
                   loggedIn={loggedIn}
@@ -186,16 +188,7 @@ function App() {
               <Route path="/sign-up" element={<Register onRegister={handleRegister} onIsInfoTooltip={handleIsInfoTooltipClick} closeFunc={closeAllPopup}/>} />
               <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
             </Routes>
-            <Header loggedIn={loggedIn} userEmail={userEmail}/>
-            <Main
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleEditCardsClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAnswer={handleAnswerClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-            />
+            
             <Footer />
           </div>
 

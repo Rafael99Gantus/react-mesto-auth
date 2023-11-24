@@ -14,14 +14,6 @@ export const register = (email, password) => {
     },
     body: JSON.stringify({email: email, password: password})
   })
-  .then((res) => {
-    console.log(res)
-    return res;
-  })
-  .catch((err) => 
-  console.log(err)
-  
-  );
 }; 
 
 
@@ -33,16 +25,6 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({email: email, password: password})
   })
-  .then((res) => {
-    if(res.token){
-      console.log(res)
-      localStorage.setItem('jwt', res.token);
-      return res;
-    }else{
-      return;
-    }
-  })
-  .catch((err) => console.log(err));
 }; 
 
 export const checkToken = (token) => {
@@ -53,5 +35,4 @@ export const checkToken = (token) => {
           'Authorization': `Bearer ${token}`
       }
   })
-  .then(data => data)
 };

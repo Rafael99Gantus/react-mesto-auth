@@ -34,10 +34,6 @@ export default function Register(props) {
 
     return (
         <div className='root'>
-                <header className="header">
-                    <div className="header__logo" />
-                    <Link to='/sign-in' className="header__sign-up"></Link>
-                </header>
                 <main>
                 <div className='register'>
                     <h2 className='register__title' >Регистрация</h2>
